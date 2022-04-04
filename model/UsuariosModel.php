@@ -234,7 +234,34 @@ class UsuariosModel extends Conexion {
             return 0;
             die();
         }
+    }
 
+    public function verificarPermiso($usuarios,$cnn){
+        try {
+            $data = [
+                'usuarios_id'    => $usuarios['usuarios_id'],
+                'modulos_id'    => $usuarios['modulos_id'],
+                'permisos_id'  => $usuarios['permisos_id']
+            ];
+
+            $sql = "SELECT b.id, c.id, d.id FROM roles_permisos a 
+            LEFT JOIN roles b ON b.id = a.roles_id
+            LEFT JOIN modulos c ON c.id = a.modulos_id
+            LEFT JOIN permisos d ON d.id = a.permisos_id
+            WHERE b.sta = 1 AND c.sta = 1 AND d.sta = 1
+            AND a.roles_id = :roles_id AND a.modulos_id = :modulos_id AND permisos_id = :permisos_id;";
+            $stmt = $cnn->prepare($sql);
+            $stmt->execute($data);
+
+            if ($stmt->rowCount() > 0) {
+                return 0;
+            }
+        } catch (PDOException $e) {
+            //throw $th;
+            echo 'Mensaje : -> ' . $e->getMessage();
+            return 0;
+            die();
+        }
     }
 }
 

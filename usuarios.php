@@ -6,15 +6,17 @@ require_once('controller/UsuariosController.php');
 
 $method = strtolower ($_SERVER['REQUEST_METHOD']);
 
+header('Access-Control-Allow-Origin: *');
+
 $usuarios_controller = new UsuariosController();
 $peticion = json_decode(file_get_contents("php://input"),true);
 if($_SERVER['REQUEST_METHOD']!=null && $_SERVER['REQUEST_METHOD'] !=""){
     switch ($method) {
         case 'get':
             
-            if(isset($peticion['id'])){
+            if(isset($_GET['id'])){
                 //get one row
-                $id = $peticion['id'];
+                $id = $_GET['id'];
                 $resulset = $usuarios_controller->getById($id);
 
                 if($resulset!=false){

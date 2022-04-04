@@ -12,9 +12,9 @@ if($_SERVER['REQUEST_METHOD']!=null && $_SERVER['REQUEST_METHOD'] !=""){
     switch ($method) {
         case 'get':
             
-            if(isset($peticion['id'])){
+            if(isset($_GET['id'])){
                 //get one row
-                $id = $peticion['id'];
+                $id = $_GET['id'];
                 $resulset = $entornos_controller->getById($id);
 
                 if($resulset!=false){

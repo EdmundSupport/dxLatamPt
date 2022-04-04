@@ -29,6 +29,11 @@ class UsuariosController extends UsuariosModel{
         $this->cnn = $this->connect();
         return $result = $this->updateUsuario($id, $this->cnn);
     }
+
+    public function permisos($id){
+        $this->cnn = $this->connect();
+        return $result = $this->verificarPermiso($id, $this->cnn);
+    }
 }
 
 ?>
